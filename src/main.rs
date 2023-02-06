@@ -1,5 +1,6 @@
-use std::collections::HashSet;
 use std::error::Error;
+use std::io;
+use std::path::Path;
 use csv::Writer;
 use rand::Rng;
 
@@ -22,7 +23,7 @@ fn main() {
     
 }
 fn to_csv(vector:&Vec<Vec<u8>>) -> Result<(), Box<dyn Error>> {
-    let mut wtr = Writer::from_path("../datos.csv")?;
+    let mut wtr = Writer::from_writer(io::stdout());
     for k in vector.into_iter(){
         wtr.write_record(k.iter().map(|e| e.to_string()))?;
     }
